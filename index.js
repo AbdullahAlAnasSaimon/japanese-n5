@@ -197,7 +197,7 @@ const arrayForVerb = [
 ]
 
 
-function show() {
+/* function show() {
 
   const vocab = document.getElementById("vocab");
   const verb = document.getElementById("verb");
@@ -209,6 +209,8 @@ function show() {
 
   const reArr = [];
   const verbArr = [];
+
+
 
   // vocab
   for (let i = 0; i < 10; i++) {
@@ -222,24 +224,75 @@ function show() {
     verbArr.push(myVerbArrResult[result]);  // .split(" - ")
   }
 
-  console.log(reArr);
-  console.log(verbArr);
+
 
   vocab.innerHTML = `
-  <h2>Dynamic Data from JavaScript</h2>
-  <p>This paragraph is injected using <strong>innerHTML</strong> method.</p>
-  <ul>
-      ${reArr.map((item, i) => `<li>${item}</li>`).join('')}
+  <h2>Main Vocabulary</h2>
+  <ul class="ul">
+      ${reArr.map((item, i) => `<li class="list-items">${item}</li>`).join('')}
   </ul>
 `;
 
   verb.innerHTML = `
-  <h2>Dynamic Data from JavaScript</h2>
-  <p>This paragraph is injected using <strong>innerHTML</strong> method.</p>
+  <h2>Verb(ます) Vocabulary</h2>
   <ul>
-      ${verbArr.map((item, i) => `<li>${item}</li>`).join('')}
+      ${verbArr.map((item, i) => `<li class="list-items">${item}</li>`).join('')}
   </ul>
 `;
+} */
+
+let myArrResult = myArr.map(item => item.vocabulary).flat();
+let myVerbArrResult = arrayForVerb.map(item => item.vocabulary).flat();
+
+function show() {
+  const vocab = document.getElementById("vocab");
+  const verb = document.getElementById("verb");
+
+  // Flatten the arrays (if they contain arrays of vocabulary)
+
+  const reArr = [];
+  const verbArr = [];
+
+  // Randomly select unique vocabulary items (10 items)
+  for (let i = 0; i < 10; i++) {
+
+    if (myArrResult.length === 0) break;  // Stop if no more items are left
+
+    const randomIndex = Math.floor(Math.random() * myArrResult.length);
+    reArr.push(myArrResult[randomIndex]);  // Add the selected item to reArr
+    myArrResult.splice(randomIndex, 1);    // Remove the selected item from the copy
+  }
+
+  // Randomly select unique verb vocabulary items (10 items)
+  for (let i = 0; i < 10; i++) {
+
+    if (myVerbArrResult.length === 0) break;  // Stop if no more items are left
+
+    const randomIndex = Math.floor(Math.random() * myVerbArrResult.length);
+
+    verbArr.push(myVerbArrResult[randomIndex]);  // Add the selected item to verbArr
+    myVerbArrResult.splice(randomIndex, 1);      // Remove the selected item from the copy
+  }
+
+  // Inject vocabulary list into HTML
+  vocab.innerHTML = `
+    <h2>Main Vocabulary</h2>
+    <ul class="ul">
+        ${reArr.map((item) => `<li class="list-items">${item}</li>`).join('')}
+    </ul>
+  `;
+
+  // Inject verb vocabulary list into HTML
+  verb.innerHTML = `
+    <h2>Verb(ます) Vocabulary</h2>
+    <ul>
+        ${verbArr.map((item) => `<li class="list-items">${item}</li>`).join('')}
+    </ul>
+  `;
+
+  // Debugging outputs
+  console.log(reArr);
+  // console.log(myArrResult);
 }
 
 
