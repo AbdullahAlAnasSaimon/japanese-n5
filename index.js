@@ -290,10 +290,14 @@ function show() {
     </ul>
   `;
 
-  // Debugging outputs
-  console.log(reArr);
-  // console.log(myArrResult);
+  console.log(myArrResult);
+  console.log(myVerbArrResult);
+  if (myArrResult.length === 0 && myVerbArrResult.length === 0) {
+    document.getElementById("wrapper").innerHTML = "<h2>No more Items Left</h2>"
+  }
 }
+
+
 
 
 // console.log(reArr.map(item => item[1]));
