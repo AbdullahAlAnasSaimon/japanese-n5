@@ -197,58 +197,20 @@ const arrayForVerb = [
 ]
 
 
-/* function show() {
-
-  const vocab = document.getElementById("vocab");
-  const verb = document.getElementById("verb");
-
-  const myArrResult = myArr.map(item => item.vocabulary).flat()
-  const myVerbArrResult = arrayForVerb.map(item => item.vocabulary).flat()
-
-  // console.log(myArrResult);
-
-  const reArr = [];
-  const verbArr = [];
-
-
-
-  // vocab
-  for (let i = 0; i < 10; i++) {
-    const result = Math.floor(Math.random() * myArrResult.length);
-    reArr.push(myArrResult[result]);  // .split(" - ")
-  }
-
-  // verb
-  for (let i = 0; i < 10; i++) {
-    const result = Math.floor(Math.random() * myVerbArrResult.length);
-    verbArr.push(myVerbArrResult[result]);  // .split(" - ")
-  }
-
-
-
-  vocab.innerHTML = `
-  <h2>Main Vocabulary</h2>
-  <ul class="ul">
-      ${reArr.map((item, i) => `<li class="list-items">${item}</li>`).join('')}
-  </ul>
-`;
-
-  verb.innerHTML = `
-  <h2>Verb(ます) Vocabulary</h2>
-  <ul>
-      ${verbArr.map((item, i) => `<li class="list-items">${item}</li>`).join('')}
-  </ul>
-`;
-} */
-
 let myArrResult = myArr.map(item => item.vocabulary).flat();
 let myVerbArrResult = arrayForVerb.map(item => item.vocabulary).flat();
+
+let myArrResultCopy = [...myArrResult];
+let myVerbArrResultCopy = [...myVerbArrResult];
+
+const startbtn = document.getElementById("show");
+const reStartbtn = document.getElementById("restart");
 
 function show() {
   const vocab = document.getElementById("vocab");
   const verb = document.getElementById("verb");
 
-  // Flatten the arrays (if they contain arrays of vocabulary)
+  // Flatten the arrays
 
   const reArr = [];
   const verbArr = [];
@@ -256,29 +218,30 @@ function show() {
   // Randomly select unique vocabulary items (10 items)
   for (let i = 0; i < 10; i++) {
 
-    if (myArrResult.length === 0) break;  // Stop if no more items are left
+    if (myArrResultCopy.length === 0) break;  // Stop if no more items are left
 
-    const randomIndex = Math.floor(Math.random() * myArrResult.length);
-    reArr.push(myArrResult[randomIndex]);  // Add the selected item to reArr
-    myArrResult.splice(randomIndex, 1);    // Remove the selected item from the copy
+    const randomIndex = Math.floor(Math.random() * myArrResultCopy.length);
+
+    reArr.push(myArrResultCopy[randomIndex]);  // Add the selected item to reArr
+    myArrResultCopy.splice(randomIndex, 1);    // Remove the selected item from the copy
   }
 
   // Randomly select unique verb vocabulary items (10 items)
   for (let i = 0; i < 10; i++) {
 
-    if (myVerbArrResult.length === 0) break;  // Stop if no more items are left
+    if (myVerbArrResultCopy.length === 0) break;  // Stop if no more items are left
 
-    const randomIndex = Math.floor(Math.random() * myVerbArrResult.length);
+    const randomIndex = Math.floor(Math.random() * myVerbArrResultCopy.length);
 
-    verbArr.push(myVerbArrResult[randomIndex]);  // Add the selected item to verbArr
-    myVerbArrResult.splice(randomIndex, 1);      // Remove the selected item from the copy
+    verbArr.push(myVerbArrResultCopy[randomIndex]);  // Add the selected item to verbArr
+    myVerbArrResultCopy.splice(randomIndex, 1);      // Remove the selected item from the copy
   }
 
   // Inject vocabulary list into HTML
   vocab.innerHTML = `
     <h2>Main Vocabulary</h2>
     <ul class="ul">
-        ${reArr.map((item) => `<li class="list-items">${item}</li>`).join('')}
+        ${reArr.length !== 0 ? reArr?.map((item) => `<li class="list-items">${item}</li>`).join('') : "No items left"}
     </ul>
   `;
 
@@ -286,16 +249,28 @@ function show() {
   verb.innerHTML = `
     <h2>Verb(ます) Vocabulary</h2>
     <ul>
-        ${verbArr.map((item) => `<li class="list-items">${item}</li>`).join('')}
+        ${verbArr.length !== 0 ? verbArr?.map((item) => `<li class="list-items">${item}</li>`).join('') : "No items left"}
     </ul>
   `;
 
-  console.log(myArrResult);
-  console.log(myVerbArrResult);
-  if (myArrResult.length === 0 && myVerbArrResult.length === 0) {
-    document.getElementById("wrapper").innerHTML = "<h2>No more Items Left</h2>"
+  if (myArrResultCopy.length === 0 && myVerbArrResultCopy.length === 0) {
+    startbtn.style.display = "none";
+    reStartbtn.style.display = "block";
   }
+
+
 }
+
+function reStart() {
+  myArrResultCopy = [...myArrResult];
+  myVerbArrResultCopy = [...myVerbArrResult];
+
+  startbtn.style.display = "block";
+  reStartbtn.style.display = "none";
+
+  show();
+}
+
 
 
 
