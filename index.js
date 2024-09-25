@@ -268,6 +268,8 @@ function show() {
   const vocab = document.getElementById("vocab");
   const verb = document.getElementById("verb");
 
+  const middleContent = document.getElementById("middle-content").style.display = "none";
+
   // Flatten the arrays
 
   const reArr = [];
@@ -297,7 +299,7 @@ function show() {
 
   // Inject vocabulary list into HTML
   vocab.innerHTML = `
-    <h2>Main Vocabulary</h2>
+    <h2>Main Vocab</h2>
     <ul class="ul">
         ${reArr.length !== 0 ? reArr?.map((item) => `<li class="list-items">${item}</li>`).join('') : "No items left"}
     </ul>
@@ -305,7 +307,7 @@ function show() {
 
   // Inject verb vocabulary list into HTML
   verb.innerHTML = `
-    <h2>Verb(ます) Vocabulary</h2>
+    <h2>Verb(ます) Vocab</h2>
     <ul>
         ${verbArr.length !== 0 ? verbArr?.map((item) => `<li class="list-items">${item}</li>`).join('') : "No items left"}
     </ul>
