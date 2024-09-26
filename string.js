@@ -1,3 +1,3 @@
-const str = "デパート ニユーヨーク ペキン ロンドン バンコク ロサンゼルス"
+const str = "スーパ バス タクシ"
 
 console.log(str.split(" "));
