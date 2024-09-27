@@ -326,6 +326,7 @@ let myVerbArrResultCopy = [...myVerbArrResult];
 const startbtn = document.getElementById("show");
 const reStartbtn = document.getElementById("restart");
 
+// create a function for showing the data
 function show() {
   const vocab = document.getElementById("vocab");
   const verb = document.getElementById("verb");
@@ -381,6 +382,7 @@ function show() {
   }
 }
 
+// Restart the showing data by clicking
 function reStart() {
   myArrResultCopy = [...myArrResult];
   myVerbArrResultCopy = [...myVerbArrResult];
@@ -389,6 +391,12 @@ function reStart() {
   reStartbtn.style.display = "none";
 
   show();
+}
+
+function openPrompt() {
+  const result = window.prompt("Type lesson number that you want to see", 1);
+
+  console.log(result);
 }
 
 
