@@ -326,10 +326,14 @@ let myVerbArrResultCopy = [...myVerbArrResult];
 const startbtn = document.getElementById("show");
 const reStartbtn = document.getElementById("restart");
 
+let selectedLesson = null;
+
 // create a function for showing the data
 function show() {
   const vocab = document.getElementById("vocab");
   const verb = document.getElementById("verb");
+
+  console.log(selectedLesson);
 
   const middleContent = document.getElementById("middle-content").style.display = "none";
 
@@ -338,15 +342,22 @@ function show() {
   const reArr = [];
   const verbArr = [];
 
+  // console.log(myArr.find(item => item.lesson === lessonNumber));
+
+  let vocabData = selectedLesson === null
+    ? myArrResultCopy
+    : myArr?.find(item => item.lesson === selectedLesson)?.vocabulary || [];
+
   // Randomly select unique vocabulary items (10 items)
   for (let i = 0; i < 10; i++) {
 
-    if (myArrResultCopy.length === 0) break;  // Stop if no more items are left
+    if (vocabData.length === 0) break;  // Stop if no more items are left
 
-    const randomIndex = Math.floor(Math.random() * myArrResultCopy.length);
+    const randomIndex = Math.floor(Math.random() * vocabData.length);
 
-    reArr.push(myArrResultCopy[randomIndex]);  // Add the selected item to reArr
-    myArrResultCopy.splice(randomIndex, 1);    // Remove the selected item from the copy
+    reArr.push(vocabData[randomIndex]);  // Add the selected item to reArr
+    vocabData?.splice(randomIndex, 1);    // Remove the selected item from the copy
+    console.log(vocabData);
   }
 
   // Randomly select unique verb vocabulary items (10 items)
@@ -382,6 +393,11 @@ function show() {
   }
 }
 
+// Passing data as peremeter
+// startbtn.onclick = function () {
+//   show(myArrResultCopy);
+// }
+
 // Restart the showing data by clicking
 function reStart() {
   myArrResultCopy = [...myArrResult];
@@ -394,9 +410,10 @@ function reStart() {
 }
 
 function openPrompt() {
-  const result = window.prompt("Type lesson number that you want to see", 1);
+  const answer = window.prompt("Type lesson number that you want to see", 1);
 
-  console.log(result);
+  selectedLesson = parseInt(answer);
+  show();
 }
 
 
