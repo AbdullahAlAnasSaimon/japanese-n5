@@ -333,7 +333,6 @@ function show() {
   const vocab = document.getElementById("vocab");
   const verb = document.getElementById("verb");
 
-  console.log(selectedLesson);
 
   const middleContent = document.getElementById("middle-content").style.display = "none";
 
@@ -342,7 +341,6 @@ function show() {
   const reArr = [];
   const verbArr = [];
 
-  // console.log(myArr.find(item => item.lesson === lessonNumber));
 
   let vocabData = selectedLesson === null
     ? myArrResultCopy
@@ -357,7 +355,6 @@ function show() {
 
     reArr.push(vocabData[randomIndex]);  // Add the selected item to reArr
     vocabData?.splice(randomIndex, 1);    // Remove the selected item from the copy
-    console.log(vocabData);
   }
 
   // Randomly select unique verb vocabulary items (10 items)
@@ -373,7 +370,7 @@ function show() {
 
   // Inject vocabulary list into HTML
   vocab.innerHTML = `
-    <h2>Main Vocab</h2>
+    <h2>Main Vocab ${selectedLesson !== null && `<span> Lesson: ${selectedLesson}</span>`}</h2>
     <ul class="ul">
         ${reArr.length !== 0 ? reArr?.map((item) => `<li class="list-items">${item}</li>`).join('') : "No items left"}
     </ul>
@@ -387,19 +384,15 @@ function show() {
     </ul>
   `;
 
-  if (myArrResultCopy.length === 0 && myVerbArrResultCopy.length === 0) {
+  if (vocabData.length === 0 && myVerbArrResultCopy.length === 0) {
     startbtn.style.display = "none";
     reStartbtn.style.display = "block";
   }
 }
 
-// Passing data as peremeter
-// startbtn.onclick = function () {
-//   show(myArrResultCopy);
-// }
-
 // Restart the showing data by clicking
 function reStart() {
+  selectedLesson = null;
   myArrResultCopy = [...myArrResult];
   myVerbArrResultCopy = [...myVerbArrResult];
 
