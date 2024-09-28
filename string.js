@@ -1,3 +1,3 @@
-const str = "ホテル パーテーイ ホンコン シンガポール"
+const str = "カタログ ソフト プレイガイド"
 
 console.log(str.split(" "));
