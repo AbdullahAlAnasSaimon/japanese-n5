@@ -742,6 +742,10 @@ function show() {
     ? myArrResultCopy
     : myArr?.find(item => item.lesson === selectedLesson)?.vocabulary || [];
 
+  let verbVocabData = selectedLesson === null
+    ? myVerbArrResultCopy
+    : arrayForVerb?.find(item => item.lesson === selectedLesson)?.vocabulary || [];
+
   // Randomly select unique vocabulary items (10 items)
   for (let i = 0; i < 10; i++) {
 
@@ -756,17 +760,17 @@ function show() {
   // Randomly select unique verb vocabulary items (10 items)
   for (let i = 0; i < 10; i++) {
 
-    if (myVerbArrResultCopy.length === 0) break;  // Stop if no more items are left
+    if (verbVocabData.length === 0) break;  // Stop if no more items are left
 
-    const randomIndex = Math.floor(Math.random() * myVerbArrResultCopy.length);
+    const randomIndex = Math.floor(Math.random() * verbVocabData.length);
 
-    verbArr.push(myVerbArrResultCopy[randomIndex]);  // Add the selected item to verbArr
-    myVerbArrResultCopy.splice(randomIndex, 1);      // Remove the selected item from the copy
+    verbArr.push(verbVocabData[randomIndex]);  // Add the selected item to verbArr
+    verbVocabData.splice(randomIndex, 1);      // Remove the selected item from the copy
   }
 
   // Inject vocabulary list into HTML
   vocab.innerHTML = `
-    <h2>Main Vocab ${selectedLesson !== null && `<span> Lesson: ${selectedLesson}</span>`}</h2>
+    <h2>Vocab ${selectedLesson !== null && `<span> Lesson: ${selectedLesson}</span>`}</h2>
     <ul class="ul">
         ${reArr.length !== 0 ? reArr?.map((item) => `<li class="list-items">${item}</li>`).join('') : "No items left"}
     </ul>
