@@ -1,3 +1,3 @@
-const str = "ピアン メートル ビートルズ"
+const str = "ゴルフ パチンコ ダイエツト ケーキ"
 
 console.log(str.split(" "));
