@@ -924,7 +924,7 @@ function show() {
 
   // Inject vocabulary list into HTML
   vocab.innerHTML = `
-    <h2>Vocab ${selectedLesson !== null && `<span> Lesson: ${selectedLesson}</span>`}</h2>
+    <h2>${selectedLesson === null ? `<span> ALL Vocab </span>` : `<span> Vocab Lesson: ${selectedLesson}</span>`}</h2>
     <ul class="ul">
         ${reArr.length !== 0 ? reArr?.map((item) => `<li class="list-items">${item}</li>`).join('') : "No items left"}
     </ul>
@@ -938,7 +938,7 @@ function show() {
     </ul>
   `;
 
-  if (vocabData.length === 0 && myVerbArrResultCopy.length === 0) {
+  if (vocabData.length === 0 && verbVocabData.length === 0) {
     startbtn.style.display = "none";
     reStartbtn.style.display = "block";
   }
